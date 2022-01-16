@@ -23,5 +23,23 @@
     <?php } else { ?>
     <p>No Courses Exit Yet.</p>
     <?php } ?>
+<!--adding course section-->
+<section id="add-course" class="add-course">
+    <h2>Add Course</h2>
+    <form action="." method="post" id="add-course-form" class="add-course-form">
+        <input type="hidden" name="action" value="addingSingleCourse">
+        <div class="add-inputs">
+            <label>Name:</label>
+            <label>
+                <input type="text" name="course-name" maxlength="50" placeholder="name" autofocus required>
+            </label>
+        </div>
+        <div class="add-item-btn">
+            <button class="add-items-button">Add</button>
+        </div>
+    </form>
+</section>
+<br>
+<p><a href=".">View &amp; Add Assignment</a> </p>
 
 <?php include ('view/footer.php'); ?>

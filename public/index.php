@@ -23,6 +23,45 @@ $course_id = filter_input(INPUT_POST, 'course_id', FILTER_VALIDATE_INT);
  }
 
  switch ($action){
+     case 'list_courses':
+         $courses = getAllCourses();
+         include ('../view/course_list.php');
+         break;
+     case 'addingSingleCourse':
+         addingSingleCourse($course_name, "this course is wonderful");
+         header("Location: .?action=list_courses");
+         break;
+     case 'addingSingleAssignment':
+         if($course_id && $description){
+             addingSingleAssignment($course_id, $description);
+             header("Location: .?course_id=$course_id");
+         }else{
+            $error = "Invalid assignment date. check all fields and try again." ;
+            include ('../view/error.php');
+            exit();
+         }
+         break;
+     case 'deleteSingleCourse':
+         if ($course_id){
+             try {
+                 deleteSingleCourse($course_id);
+             }catch (PDOException $exception){
+                 $error = "You cannot delete a course if assignment exit in the course";
+                 include ('../view/error.php');
+                 exit();
+             }
+             header("Location: .?action=list_courses");
+         }
+         break;
+     case 'deleteSingleAssignment':
+         if ($assignment_id){
+             deleteSingleAssignment($assignment_id);
+             header("Location: .?course_id=$course_id");
+         }else{
+             $error = "Missing or incorrect assignment id.";
+             include ('../view/error.php');
+         }
+         break;
      default:
          $course_name = getCourseName($course_id);
          $courses = getAllCourses();
